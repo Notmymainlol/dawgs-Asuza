@@ -114,18 +114,12 @@ local function autoStrongHit()
     
     StatusLabel.Text = "Strong area detected!"
     
-    -- Check if player is in strong area
+    -- Instantly hit if player is in strong area (no delay, no cooldown)
     if playerPos >= strongLeft and playerPos <= strongRight then
         StatusLabel.Text = "🎯 HITTING STRONG!"
-        
-        -- Hit the strong area
         local VIM = game:GetService("VirtualInputManager")
         VIM:SendKeyEvent(true, Enum.KeyCode.Space, false, game)
-        task.wait(0.01)
         VIM:SendKeyEvent(false, Enum.KeyCode.Space, false, game)
-        
-        -- Wait a bit to avoid spam
-        task.wait(0.2)
     else
         local distance = math.abs(playerPos - strongCenter)
         StatusLabel.Text = "Waiting... (dist: " .. math.floor(distance * 1000) .. ")"
